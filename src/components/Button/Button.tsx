@@ -1,7 +1,7 @@
 import React, { FC, MouseEvent, VFC } from "react";
 import styled from "styled-components";
 
-interface ButtonProps {
+export interface ButtonProps {
   primary?: boolean;
   backgroundColor?: string | null;
   size?: "small" | "medium" | "large";

@@ -1,8 +1,7 @@
-import React, { ComponentProps } from "react";
+import React, { ComponentProps, VFC } from "react";
 
-import { Button } from "./Button";
-import { Story, Meta } from "@storybook/react/types-6-0";
-import { action } from "@storybook/addon-actions";
+import { Button, ButtonProps } from "./Button";
+import { Meta } from "@storybook/react/types-6-0";
 
 export default {
   title: "Example/Button",
@@ -15,21 +14,18 @@ export default {
       control: { type: "select", options: ["small", "medium", "large"] },
     },
     label: { control: "text" },
+    onClick: {
+      table: {
+        disable: true,
+      },
+    },
   },
 } as Meta;
 
-const Template: Story<ComponentProps<typeof Button>> = (args) => (
-  <Button {...args} />
-);
-
-export const Primary = () => <Button />;
+export const Primary = (args: ButtonProps) => <Button {...args} />;
 
 export const Secondary = () => <Button primary={false} />;
 
 export const Large = () => <Button size="large" />;
 
 export const Small = () => <Button size="small" />;
-
-export const Example = () => (
-  <Button label="Button" onClick={() => alert("hello")} />
-);
