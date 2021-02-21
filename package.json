@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "module": "dist-es6/index",
+  "prebuild": "rimraf dist dist-es6",
+  "build": "babel components — out-dir dist-es6 — source-maps inline",
+  "postinstall": "postinstall-build --only-as-dependency dist",
   "devDependencies": {
     "@babel/core": "^7.12.17",
     "@storybook/addon-actions": "^6.1.18",

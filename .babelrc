@@ -1,0 +1,8 @@
+{
+  // whichever presets your projects use should match here
+  "presets": ["es2015", "stage-0", "react"],
+  "plugins": [
+    "transform-runtime", // for polyfills
+    "transform-react-remove-prop-types" // we use this to remove the propTypes
+  ]
+}
