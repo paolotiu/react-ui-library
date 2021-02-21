@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Story, Meta } from "@storybook/react/types-6-0";
 import { CircleProgress, Props } from "./CircleProgress";
@@ -17,14 +17,43 @@ export default {
         },
       },
     },
-    backgroundColor: { control: "color" },
-    textColor: { control: "color" },
+    backgroundColor: {
+      control: "color",
+      table: {
+        category: "color",
+      },
+    },
+    textColor: {
+      control: "color",
+      table: {
+        category: "color",
+      },
+    },
     progressBarColor: {
       control: "color",
+      table: {
+        category: "color",
+      },
     },
-    completedBackgroundColor: { control: "color" },
-    completedProgressBarColor: { control: "color" },
+    completedBackgroundColor: {
+      control: "color",
+      table: {
+        category: "color",
+      },
+    },
+    completedProgressBarColor: {
+      control: "color",
+      table: {
+        category: "color",
+      },
+    },
     label: { control: "text" },
+    progressBarWidth: {
+      control: {
+        type: "range",
+        max: 30,
+      },
+    },
     progressBarStyle: {
       control: {
         type: "select",
@@ -33,12 +62,33 @@ export default {
       },
     },
 
+    progressBarTransitionDuration: {
+      table: {
+        category: "animation",
+      },
+      control: {
+        type: "number",
+        step: 100,
+      },
+    },
+    progressBarTransitionEase: {
+      table: {
+        category: "animation",
+      },
+    },
+
     className: {
+      table: {
+        category: "misc",
+      },
       control: {
         disable: true,
       },
     },
     style: {
+      table: {
+        category: "misc",
+      },
       control: {
         disable: true,
       },
@@ -63,5 +113,37 @@ export const WithLabel = (args: Props) => (
   <div style={{ textAlign: "center", background: "#c4c4c4" }}>
     <CircleProgress {...args} style={{ fontFamily: "monospace" }} />
     <span>Uploading...</span>
+  </div>
+);
+
+export const Anim = (args: Props) => {
+  const [progress, setProgress] = useState(args.progress);
+  useEffect(() => {
+    setProgress(args.progress);
+  }, [args.progress]);
+  return (
+    <div>
+      <CircleProgress
+        progress={progress}
+        completedProgressBarColor={"#71d449"}
+      />
+      <div style={{ display: "grid", maxWidth: "100px", gap: "1em" }}>
+        <button onClick={() => setProgress(100)}>100%</button>
+        <button onClick={() => setProgress(50)}>50%</button>
+        <button onClick={() => setProgress(0)}>0%</button>
+      </div>
+    </div>
+  );
+};
+export const StepProgress = (args: Props) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+    }}
+  >
+    <CircleProgress progress={80} />
+    <CircleProgress progress={80} />
+    <CircleProgress progress={80} />
   </div>
 );
