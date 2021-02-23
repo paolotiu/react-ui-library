@@ -100,19 +100,15 @@ export default {
 } as Meta;
 
 export const Default = (args: Props) => (
-  <div
-    style={{
-      background: "#d1d1d1",
-    }}
-  >
+  <div>
     <CircleProgress {...args} />
   </div>
 );
 
 export const WithLabel = (args: Props) => (
-  <div style={{ textAlign: "center", background: "#c4c4c4" }}>
+  <div style={{ textAlign: "center" }}>
     <CircleProgress {...args} style={{ fontFamily: "monospace" }} />
-    <span>Uploading...</span>
+    <div>Uploading...</div>
   </div>
 );
 
