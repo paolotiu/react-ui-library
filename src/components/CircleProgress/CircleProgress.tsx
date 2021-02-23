@@ -1,5 +1,23 @@
 import React, { FC, useState } from "react";
 import styled, { ThemedStyledFunction } from "styled-components";
+
+const Wrapper = styled.div`
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  span {
+    font-size: 1.8em;
+  }
+  circle {
+    transition: fill 0.2s ease-in;
+  }
+  z-index: 1;
+`;
+
+interface PathProps {
+  transitionDuration: string;
+  transitionEase: string;
+}
 const Path = styled.path<PathProps>`
   fill: none;
   stroke-linecap: round;
@@ -10,33 +28,26 @@ const Path = styled.path<PathProps>`
     ${(props) => props.transitionDuration + " " + props.transitionEase};
 `;
 
-interface PathProps {
-  transitionDuration: string;
-  transitionEase: string;
+interface StepMarkerProps {
+  completed: boolean;
+  duration: number;
+  delay: number;
 }
-const Wrapper = styled.div<{ complete: boolean }>`
-  text-align: center;
-  display: inline-block;
-  position: relative;
-  span {
-    font-size: 1.8em;
-  }
-  circle {
-    transition: fill 0.2s ease-in;
-  }
+
+const StepMarker = styled.div<StepMarkerProps>`
   ::after {
     content: "";
     position: absolute;
-    left: 100%;
+    left: 50%;
     top: 50%;
-    transform: translate(-20%, -50%);
-
-    width: 50px;
+    transform: translate(13%, -50%);
+    width: 100%;
     height: 3px;
     background: linear-gradient(to right, red 50%, blue 50%);
-    background-position: ${(props) => (props.complete ? "left" : "right")}
+    background-position: ${(props) => (props.completed ? "left" : "right")}
       bottom;
-    transition: all 2s ease;
+    transition: all ${(props) => props.duration + "ms"} ease
+      ${(props) => props.delay + "ms"};
     background-size: 200% 100%;
     border-radius: 20px;
   }
@@ -61,6 +72,12 @@ export interface Props {
   textColor?: string;
   className?: string;
   style?: React.CSSProperties;
+  /** 
+    In ms
+  */
+  stepDuration?: number;
+  stepDelay?: number;
+  withStep?: boolean;
 }
 
 export const CircleProgress: FC<Props> = ({
@@ -75,16 +92,21 @@ export const CircleProgress: FC<Props> = ({
   progressBarTransitionEase = "ease-in",
   progressBarWidth = 3,
   textColor,
+  stepDuration = 500,
+  stepDelay = 200,
+  withStep = false,
   ...props
 }) => {
-  const [completed, setCompleted] = useState(false);
   return (
     <>
-      <Wrapper
-        {...props}
-        complete={completed}
-        onClick={() => setCompleted(!completed)}
-      >
+      <Wrapper {...props} id="__circle_progress">
+        {withStep && (
+          <StepMarker
+            completed={progress === 100}
+            duration={stepDuration}
+            delay={stepDelay}
+          />
+        )}
         <svg id="svg" viewBox="0 0 100 100" width="100" height="100">
           <circle
             cx="50"
@@ -95,6 +117,15 @@ export const CircleProgress: FC<Props> = ({
                 ? completedBackgroundColor || backgroundColor
                 : backgroundColor
             }
+          />
+          <path
+            stroke={"gray"}
+            opacity={0.2}
+            fill="none"
+            strokeWidth={progressBarWidth - 1}
+            d="M50 10
+              a 40 40 0 0 1 0 80
+              a 40 40 0 0 1 0 -80"
           />
           <Path
             transitionDuration={progressBarTransitionDuration + "ms"}
@@ -108,15 +139,15 @@ export const CircleProgress: FC<Props> = ({
             }
             strokeDasharray={getProgressStrokeValue(progress)}
             d="M50 10
-           a 40 40 0 0 1 0 80
-           a 40 40 0 0 1 0 -80"
+            a 40 40 0 0 1 0 80
+            a 40 40 0 0 1 0 -80"
           />
           <text
             x="50%"
             y="50%"
-            text-anchor="middle"
+            textAnchor="middle"
             dominantBaseline="central"
-            font-size=".8m"
+            fontSize=".8m"
             fontWeight="200"
             fill={textColor}
           >
