@@ -1,5 +1,5 @@
-import React, { FC, useState } from "react";
-import styled, { ThemedStyledFunction } from "styled-components";
+import React, { FC } from "react";
+import styled from "styled-components";
 
 const Wrapper = styled.div`
   text-align: center;
@@ -12,6 +12,8 @@ const Wrapper = styled.div`
     transition: fill 0.2s ease-in;
   }
   z-index: 1;
+  width: 100%;
+  max-width: 100px;
 `;
 
 interface PathProps {
@@ -107,7 +109,7 @@ export const CircleProgress: FC<Props> = ({
             delay={stepDelay}
           />
         )}
-        <svg id="svg" viewBox="0 0 100 100" width="100" height="100">
+        <svg id="svg" viewBox="0 0 100 100">
           <circle
             cx="50"
             cy="50"
