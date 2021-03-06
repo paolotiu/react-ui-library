@@ -1,6 +1,6 @@
 {
   "name": "tiu-ui",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -32,6 +32,7 @@
   "scripts": {
     "build": "tsc",
     "storybook": "start-storybook -p 5000",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "pub": "yarn build && yarn publish"
   }
 }
