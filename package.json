@@ -4,6 +4,10 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paolotiu17/react-ui-library"
+  },
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.12.17",
