@@ -76,6 +76,20 @@ export default {
         category: "animation",
       },
     },
+    progressBarColorTransitionDuration: {
+      table: {
+        category: "animation",
+      },
+      control: {
+        type: "number",
+        step: 100,
+      },
+    },
+    progressBarColorTransitionEase: {
+      table: {
+        category: "animation",
+      },
+    },
 
     className: {
       table: {
@@ -120,6 +134,7 @@ export const Anim = (args: Props) => {
   return (
     <div>
       <CircleProgress
+        {...args}
         progress={progress}
         completedProgressBarColor={"#71d449"}
       />

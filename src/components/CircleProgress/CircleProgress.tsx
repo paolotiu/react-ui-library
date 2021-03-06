@@ -17,6 +17,8 @@ const Wrapper = styled.div`
 `;
 
 interface PathProps {
+  colorTransitionDuration: string;
+  colorTransitionEase: string;
   transitionDuration: string;
   transitionEase: string;
 }
@@ -27,7 +29,10 @@ const Path = styled.path<PathProps>`
   stroke-dasharray: ${(props) => `${props.strokeDasharray}, 251.2`};
   stroke-linecap: ${(props) => props.strokeLinecap || "round"};
   transition: stroke
-    ${(props) => props.transitionDuration + " " + props.transitionEase};
+      ${(props) =>
+        props.colorTransitionDuration + " " + props.colorTransitionEase},
+    stroke-dasharray
+      ${(props) => props.transitionDuration + " " + props.transitionEase};
 `;
 
 interface StepMarkerProps {
@@ -63,6 +68,8 @@ export interface Props {
   /** 
     In ms
   */
+  progressBarColorTransitionDuration?: number;
+  progressBarColorTransitionEase?: string;
   progressBarTransitionDuration?: number;
   progressBarTransitionEase?: string;
   progressBarWidth?: number;
@@ -90,6 +97,8 @@ export const CircleProgress: FC<Props> = ({
   label,
   progress,
   progressBarStyle = "round",
+  progressBarColorTransitionDuration = 300,
+  progressBarColorTransitionEase = "ease-in",
   progressBarTransitionDuration = 300,
   progressBarTransitionEase = "ease-in",
   progressBarWidth = 3,
@@ -130,6 +139,8 @@ export const CircleProgress: FC<Props> = ({
               a 40 40 0 0 1 0 -80"
           />
           <Path
+            colorTransitionDuration={progressBarColorTransitionDuration + "ms"}
+            colorTransitionEase={progressBarColorTransitionEase}
             transitionDuration={progressBarTransitionDuration + "ms"}
             transitionEase={progressBarTransitionEase}
             strokeWidth={progressBarWidth}
