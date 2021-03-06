@@ -10,9 +10,28 @@ export default {
     textColor: { control: "color" },
     lineColor: { control: "color" },
     lineThickness: { control: "text" },
+    lineStyle: {
+      control: {
+        type: "select",
+        options: [
+          "dotted",
+          "dashed",
+          "solid",
+          "double",
+          "groove",
+          "ridge",
+          "inset",
+          "outset",
+          "none",
+          "hidden",
+        ],
+        default: "solid",
+      },
+    },
   },
   args: {
     text: "Hello World",
+    lineStyle: "solid",
   },
 } as Meta;
 
